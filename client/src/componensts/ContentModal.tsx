@@ -1,7 +1,7 @@
 import { Input } from "./Input";
 import { CloseIcon } from "../ui/icons/CloseIcon";
 import Buttons from "./Buttons";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -96,21 +96,6 @@ const ContentModal = ({
             </div>
             <Buttons onClick={handleSubmitContent} text="Submit" variant="primary" fullwidth={true} />
           </div>
-          <div>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Bounce}
-          />
-        </div>
         </div>
       )}
     </>

@@ -8,7 +8,7 @@
  import { BACKEND_URL } from "../config";
  import axios from "axios";
  import { useEffect} from "react";
- import { Bounce, ToastContainer, toast } from "react-toastify";
+ import { toast } from "react-toastify";
 
 
  interface CardProp {
@@ -89,21 +89,6 @@
            <a href={link.replace("x.com", "twitter.com")}></a>
          </blockquote>
        )}
-       <div>
-           <ToastContainer
-             position="bottom-right"
-             autoClose={1500}
-             hideProgressBar={false}
-             newestOnTop={false}
-             closeOnClick={false}
-             rtl={false}
-             pauseOnFocusLoss
-             draggable
-             pauseOnHover
-             theme="light"
-             transition={Bounce}
-           />
-         </div>
      </div>
    );
  };

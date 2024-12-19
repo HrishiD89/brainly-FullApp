@@ -21,9 +21,14 @@ const Contents = () => {
       .catch((err) => console.log(err));
   }, [params.hash]);
 
+  if(sharedContent.length === 0) return <div className="p-4 text-6xl  text-blue-600 w-full flex justify-center items-center">
+  Content not found or already deleted
+</div>
+
+
   return (
     <div className="w-full h-full bg-blue-200 flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-semibold text-blue-600 font-inter p-4">Shared by {userName}</h1>
+      <h1 className="text-4xl font-semibold text-blue-600 font-inter p-4">{userName}'s DropBrain</h1>
 
       <div className="flex flex-wrap gap-4 p-4 overflow-auto justify-center ">
         {sharedContent.map(({ type, link, title, tags }) => (

@@ -27,7 +27,6 @@ const SharedCards = ({ type, title, link, tags }: CardProp) => {
 
   return (
     <div className={`w-96 bg-white p-4 rounded-md gap-3 flex flex-col shadow-md ${type === "youtube" ? "h-96  " : "h-96 overflow-y-hidden hover:overflow-y-scroll "}`}>
-      {/* Header */}
       <div className="flex items-center justify-between">
         <span>{type === "youtube" && <YoutubeIcon />} {type === "tweet" && <TwitterIcon />}</span>
         <span className="text-lg font-semibold truncate">{title}</span>
@@ -37,7 +36,6 @@ const SharedCards = ({ type, title, link, tags }: CardProp) => {
           </Link>
         </div>
       </div>
-      {/* Tags */}
       <div className="flex flex-wrap gap-2 mt-2">
         {tags?.map((tag) => (
           <span
@@ -49,7 +47,6 @@ const SharedCards = ({ type, title, link, tags }: CardProp) => {
         ))}
       </div>
 
-      {/* Content */}
       {type === "youtube" && (
         <iframe
           className="rounded-md mt-2 w-full h-full"

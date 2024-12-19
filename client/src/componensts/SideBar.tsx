@@ -27,11 +27,8 @@ export const SideBar = ({ onClick, toggleSidebar }: SideBarProps) => {
           )}
         </div>
         <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<DashboardIcon/>} text="Dashboard" />
-        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<YoutubeIcon/>} text="youtube" />
-        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<TwitterIcon/>} text="Dashboard" />
-
-
-
+        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<YoutubeIcon/>} text="Youtube" />
+        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<TwitterIcon/>} text="Tweets" />
       </div>
     </div>
   );
