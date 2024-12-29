@@ -78,7 +78,7 @@ export const SideBar = ({
           />
 
           {toggleSidebar && (
-            <span>
+            <span className="py-6">
               <Buttons
                 onClick={handleLogout}
                 variant="primary"
@@ -93,12 +93,14 @@ export const SideBar = ({
       {toggleSidebar ? (
         ""
       ) : (
-        <Buttons
+        <span className="py-6">
+          <Buttons
           onClick={handleLogout}
           variant="primary"
           text="Logout"
           fullwidth={true}
         />
+        </span>
       )}
     </div>
   );
