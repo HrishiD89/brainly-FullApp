@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
@@ -8,7 +8,7 @@ const Contents = () => {
   const [sharedContent, setShareContent] = useState([]);
   const [userName, setUserName] = useState([]);
 
-  const params = useParams();
+  const params = useParams<{ hash: string }>();
   console.log(params.hash);
 
   useEffect(() => {

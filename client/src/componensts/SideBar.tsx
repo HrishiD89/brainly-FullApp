@@ -7,7 +7,7 @@ import { DashboardIcon } from "../ui/icons/Dashboard";
 interface SideBarProps {
   onClick: () => void;
   toggleSidebar: boolean;
-  setContentType: React.Dispatch<React.SetStateAction<string>>;
+  setContentType:  React.Dispatch<React.SetStateAction<ContentType>>;
 }
 
 type ContentType = "youtube" | "tweet" | "all";

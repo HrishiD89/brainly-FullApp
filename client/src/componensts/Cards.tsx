@@ -38,6 +38,7 @@ const Cards = ({ id, type, title, link, tags, setContentRemoved }: CardProp) => 
     }
   }
 
+  
   useEffect(() => {
     if (window.twttr && window.twttr.widgets) {
       window.twttr.widgets.load();

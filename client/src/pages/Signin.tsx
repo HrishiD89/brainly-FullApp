@@ -17,7 +17,11 @@ interface SiginResponse {
   token?:string
 }
 
-export const Signin = ({setToken} : {setToken:React.Dispatch<React.SetStateAction<string>>  }) => {
+interface SigninProps {
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export const Signin: React.FC<SigninProps> = ({ setToken }) => {
   const [passwordHide, setPasswordHide] = useState(true);
 
   // Fix: Set useRef to null initially

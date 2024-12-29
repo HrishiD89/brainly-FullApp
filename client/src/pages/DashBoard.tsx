@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Logo from "../ui/icons/Logo";
 
 import ContentModal from "../componensts/ContentModal";
-import axios, { all } from "axios";
+import axios from "axios";
 import { BACKEND_URL, APP_URL } from "../config";
 
 type ContentType = "youtube" | "tweet" | "all";
@@ -23,11 +23,34 @@ export const DashBoard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [contentRemoved, setContentRemoved] = useState(false);
   const [contentAdded, setContentAdded] = useState(false);
-  const { contents, refresh } = useContent();
   const [share, setShare] = useState(false);
   const [shareHash, setShareHash] = useState("");
   const [contentType, setContentType] = useState<ContentType>("all");
   const [loadContent, setLoadContent] = useState(false);
+
+  const { contents, refresh }: { contents: Content[]; refresh: () => void } = useContent();
+
+  interface Tag {
+    _id: string;
+    title: string;
+  }
+  
+  interface User {
+    _id: string;
+    username: string;
+  }
+  
+  interface Content {
+    _id: string;
+    title: string;
+    link: string;
+    type: "youtube" | "tweet";
+    tags: Tag[];
+    userId: User;
+    __v: number;
+  }
+  
+  
 
   // Filtered Content
   const filteredContent = useMemo(() => {
@@ -118,7 +141,7 @@ export const DashBoard = () => {
           className=" cursor-pointer flex items-center gap-3"
         >
           <Logo className="size-10 text-blue-600" />
-            <p className="font-bold font-inter text-2xl">DropBrain</p>
+          <p className="font-bold font-inter text-2xl">DropBrain</p>
         </div>
       </div>
       <div

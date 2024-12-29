@@ -2,7 +2,7 @@ import { Input } from "./Input";
 import { CloseIcon } from "../ui/icons/CloseIcon";
 import Buttons from "./Buttons";
 import { toast } from "react-toastify";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
