@@ -73,7 +73,7 @@ export const DashBoard = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoadContent(true);
-    }, 5000);
+    }, 2000);
   }, [filteredContent]);
 
   const handleToggleSidebar = () => {

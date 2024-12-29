@@ -3,11 +3,14 @@ import SideBarContent from "./SideBarContent";
 import { TwitterIcon } from "../ui/icons/TwitterIcon";
 import YoutubeIcon from "../ui/icons/YoutubeIcon";
 import { DashboardIcon } from "../ui/icons/Dashboard";
+import { useNavigate } from "react-router-dom";
+import Buttons from "./Buttons";
+import { toast } from "react-toastify";
 
 interface SideBarProps {
   onClick: () => void;
   toggleSidebar: boolean;
-  setContentType:  React.Dispatch<React.SetStateAction<ContentType>>;
+  setContentType: React.Dispatch<React.SetStateAction<ContentType>>;
 }
 
 type ContentType = "youtube" | "tweet" | "all";
@@ -17,15 +20,28 @@ export const SideBar = ({
   toggleSidebar,
   setContentType,
 }: SideBarProps) => {
-
   const handleSetContent = (type: ContentType) => {
     setContentType(type);
   };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success("Logout successful");
+
+    setTimeout(() => {
+      navigate("/signin");
+    }, 1000);
+  };
+
   return (
     <div
       className={`${
-        toggleSidebar ? "w-[72px] sm:flex justify-center hidden" : "w-64 flex flex-col "
-      } :  h-screen p-4 flex flex-shrink-0 bg-white fixed  top-0 left-0 z-[99] `}
+        toggleSidebar
+          ? "w-[72px] sm:flex justify-center hidden"
+          : "w-64 flex flex-col "
+      } :  h-screen p-4 flex flex-shrink-0 bg-white fixed justify-between  top-0 left-0 z-[99] `}
     >
       <div className="w-full h-ful flex flex-col gap-4">
         <div
@@ -51,14 +67,39 @@ export const SideBar = ({
             text="Youtube"
           />
         </span>
-        <span onClick={() => handleSetContent("tweet")}>
+        <span
+          className="h-full flex flex-col justify-between"
+          onClick={() => handleSetContent("tweet")}
+        >
           <SideBarContent
             toggleSidebar={toggleSidebar}
             svgIcon={<TwitterIcon />}
             text="Tweets"
           />
+
+          {toggleSidebar && (
+            <span>
+              <Buttons
+                onClick={handleLogout}
+                variant="primary"
+                text="Logout"
+                fullwidth={true}
+              />
+            </span>
+          )}
         </span>
       </div>
+
+      {toggleSidebar ? (
+        ""
+      ) : (
+        <Buttons
+          onClick={handleLogout}
+          variant="primary"
+          text="Logout"
+          fullwidth={true}
+        />
+      )}
     </div>
   );
 };
