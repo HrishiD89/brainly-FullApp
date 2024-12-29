@@ -168,7 +168,7 @@ export const DashBoard = () => {
                 </div>
               </div>
             )}
-            <span className="flex justify-end gap-3 py-5 px-4 z-[80]">
+            <span className="flex justify-end gap-3 py-5 px-4 z-[99]">
               <Buttons
                 startIcon={<PlusIcon />}
                 text="Add Content"

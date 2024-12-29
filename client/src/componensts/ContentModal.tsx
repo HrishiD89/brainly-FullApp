@@ -97,7 +97,7 @@ const ContentModal = ({
     <>
       {modalOpen && (
         <div className="bg-blue-500 bg-opacity-50 fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
-          <div className="bg-white flex flex-col gap-3 font-inter ring-black ring-2 rounded-md p-4 max-w-lg w-full">
+          <div className="bg-white flex flex-col gap-3 font-inter ring-blue-600 ring-2 rounded-md p-4 w-96 sm:max-w-lg sm:w-full">
             <p className="flex items-center justify-between">
               Post Content
               <span onClick={() => setModalOpen(false)}>
