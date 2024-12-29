@@ -7,16 +7,27 @@ import { DashboardIcon } from "../ui/icons/Dashboard";
 interface SideBarProps {
   onClick: () => void;
   toggleSidebar: boolean;
+  setContentType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SideBar = ({ onClick, toggleSidebar }: SideBarProps) => {
+type ContentType = "youtube" | "tweet" | "all";
+
+export const SideBar = ({
+  onClick,
+  toggleSidebar,
+  setContentType,
+}: SideBarProps) => {
+
+  const handleSetContent = (type: ContentType) => {
+    setContentType(type);
+  };
   return (
     <div
       className={`${
-        toggleSidebar ? "w-[72px] flex justify-center" : "w-64 flex flex-col"
-      } : bg-white h-screen p-4 flex flex-shrink-0 fixed top-0 left-0 z-[99]`}
+        toggleSidebar ? "w-[72px] sm:flex justify-center hidden" : "w-64 flex flex-col "
+      } :  h-screen p-4 flex flex-shrink-0 bg-white fixed  top-0 left-0 z-[99] `}
     >
-       <div className="w-full h-ful flex flex-col gap-4">
+      <div className="w-full h-ful flex flex-col gap-4">
         <div
           onClick={onClick}
           className=" cursor-pointer flex items-center gap-3"
@@ -26,9 +37,27 @@ export const SideBar = ({ onClick, toggleSidebar }: SideBarProps) => {
             <p className="font-bold font-inter text-2xl">DropBrain</p>
           )}
         </div>
-        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<DashboardIcon/>} text="Dashboard" />
-        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<YoutubeIcon/>} text="Youtube" />
-        <SideBarContent toggleSidebar={toggleSidebar} svgIcon={<TwitterIcon/>} text="Tweets" />
+        <span onClick={() => handleSetContent("all")}>
+          <SideBarContent
+            toggleSidebar={toggleSidebar}
+            svgIcon={<DashboardIcon />}
+            text="Dashboard"
+          />
+        </span>
+        <span onClick={() => handleSetContent("youtube")}>
+          <SideBarContent
+            toggleSidebar={toggleSidebar}
+            svgIcon={<YoutubeIcon />}
+            text="Youtube"
+          />
+        </span>
+        <span onClick={() => handleSetContent("tweet")}>
+          <SideBarContent
+            toggleSidebar={toggleSidebar}
+            svgIcon={<TwitterIcon />}
+            text="Tweets"
+          />
+        </span>
       </div>
     </div>
   );

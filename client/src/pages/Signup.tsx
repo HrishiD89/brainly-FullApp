@@ -65,7 +65,7 @@ export const Signup: React.FC = () => {
           <span>
             <Logo className="size-16 text-blue-700" />
           </span>
-          <p className="text-2xl">BrainDrop</p>
+          <p className="text-2xl">SIGN UP</p>
         </h1>
         <form className="flex flex-col gap-7">
           <div className="flex flex-col">
@@ -102,11 +102,11 @@ export const Signup: React.FC = () => {
             <p className="text-sm py-2 text-gray-700">
               Already have an account?{" "}
               <span className="text-blue-700 hover:underline">
-                <Link to="/signin">Sign in</Link>
+                <Link to="/signin">Login</Link>
               </span>
             </p>
             <Buttons
-              text="Log in"
+              text="SIGN UP"
               variant="primary"
               onClick={handleSignup}
               fullwidth={true}

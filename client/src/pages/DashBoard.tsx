@@ -6,15 +6,17 @@ import ShareIcon from "../ui/icons/ShareIcon";
 import PaperClick from "../ui/icons/PaperClick";
 import { CloseIcon } from "../ui/icons/CloseIcon";
 import { useContent } from "../hooks/useContent";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logo from "../ui/icons/Logo";
 
 import ContentModal from "../componensts/ContentModal";
-// import ShareModal from "../componensts/ShareModal";
-import axios from "axios";
+import axios, { all } from "axios";
 import { BACKEND_URL, APP_URL } from "../config";
+
+type ContentType = "youtube" | "tweet" | "all";
 
 export const DashBoard = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -24,12 +26,32 @@ export const DashBoard = () => {
   const { contents, refresh } = useContent();
   const [share, setShare] = useState(false);
   const [shareHash, setShareHash] = useState("");
+  const [contentType, setContentType] = useState<ContentType>("all");
+  const [loadContent, setLoadContent] = useState(false);
+
+  // Filtered Content
+  const filteredContent = useMemo(() => {
+    switch (contentType) {
+      case "tweet":
+        return contents.filter((content) => content.type === "tweet");
+      case "youtube":
+        return contents.filter((content) => content.type === "youtube");
+      default:
+        return contents;
+    }
+  }, [contents, contentType]);
 
   useEffect(() => {
     if (contentRemoved || contentAdded) refresh();
     setContentAdded(false);
     setContentRemoved(false);
   }, [contentAdded, contentRemoved, refresh]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadContent(true);
+    }, 5000);
+  }, [filteredContent]);
 
   const handleToggleSidebar = () => {
     console.log("toggleSidebar", toggleSidebar);
@@ -81,18 +103,33 @@ export const DashBoard = () => {
   };
 
   return (
-    <div className="flex relative w-full min-h-screen bg-blue-200">
-      <SideBar onClick={handleToggleSidebar} toggleSidebar={toggleSidebar} />
-
+    <div className="flex relative flex-col sm:flex-row min-h-screen bg-blue-200">
+      <SideBar
+        setContentType={setContentType}
+        onClick={handleToggleSidebar}
+        toggleSidebar={toggleSidebar}
+      />
       <div
-        className={`flex font-inter relative ${
-          toggleSidebar ? "ml-[72px]" : "ml-64"
-        } w-full`}
+        id="small-screen-navbar"
+        className="bg-white h-[72px] w-full px-4 sm:hidden flex fixed top-0 left-0 z-[99] "
+      >
+        <div
+          onClick={handleToggleSidebar}
+          className=" cursor-pointer flex items-center gap-3"
+        >
+          <Logo className="size-10 text-blue-600" />
+            <p className="font-bold font-inter text-2xl">DropBrain</p>
+        </div>
+      </div>
+      <div
+        className={`flex  font-inter relative ${
+          toggleSidebar ? "sm:ml-[72px]" : "sm:ml-64"
+        } w-full mt-[72px] sm:mt-0 `}
       >
         <div className="relative flex flex-col w-full min-h-screen">
-          <div className="flex justify-end gap-3 py-5 px-4 fixed bottom-0 right-0 z-[10]">
+          <div className="flex flex-col sm:flex-row justify-end gap-3 py-5 px-4 fixed bottom-0 right-0 z-[10]">
             {share && (
-              <div className="bg-white w-[512px] p-4 rounded-md">
+              <div className="bg-blue-600 text-white w-full text-sm sm:text-base  sm:w-[512px] p-4 rounded-md">
                 <p className="text-sm flex items-center gap-1 mb-1">
                   <PaperClick />{" "}
                   <span className="flex justify-between w-full">
@@ -103,12 +140,12 @@ export const DashBoard = () => {
                     </span>
                   </span>{" "}
                 </p>
-                <div className="bg-blue-100 ">
+                <div className="text-blue-900 bg-blue-400 ">
                   {APP_URL}/brain/{shareHash}
                 </div>
               </div>
             )}
-            <span className="flex justify-end gap-3 py-5 px-4">
+            <span className="flex justify-end gap-3 py-5 px-4 z-[80]">
               <Buttons
                 startIcon={<PlusIcon />}
                 text="Add Content"
@@ -126,11 +163,11 @@ export const DashBoard = () => {
 
           {contents.length === 0 ? (
             <div className="text-9xl text-blue-600 w-full h-screen flex justify-center items-center">
-              Drop Your Brain...
+              Drop Your Brain.
             </div>
-          ) : (
-            <div className="flex flex-wrap gap-4 p-4 overflow-auto pb-20">
-              {contents.map(({ _id, type, link, title, tags }) => (
+          ) : loadContent ? (
+            <div className="flex flex-wrap gap-4 p-4 overflow-auto pb-20 sm:justify-start justify-center">
+              {filteredContent.map(({ _id, type, link, title, tags }) => (
                 <Cards
                   setContentRemoved={setContentRemoved}
                   key={_id}
@@ -142,6 +179,10 @@ export const DashBoard = () => {
                 />
               ))}
             </div>
+          ) : (
+            <h1 className="text-9xl text-blue-600 w-full h-screen flex justify-center items-center">
+              Loading...
+            </h1>
           )}
         </div>
       </div>

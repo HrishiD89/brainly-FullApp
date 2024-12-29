@@ -17,7 +17,7 @@ interface SiginResponse {
   token?:string
 }
 
-export const Signin: React.FC = ({setToken}) => {
+export const Signin = ({setToken} : {setToken:React.Dispatch<React.SetStateAction<string>>  }) => {
   const [passwordHide, setPasswordHide] = useState(true);
 
   // Fix: Set useRef to null initially
@@ -59,7 +59,7 @@ export const Signin: React.FC = ({setToken}) => {
           <span>
             <Logo className="size-16 text-blue-700" />
           </span>
-          <p className="text-2xl">BrainDrop</p>
+          <p className="text-2xl">LOGIN</p>
         </h1>
         <form className="flex flex-col gap-7">
           <div className="flex flex-col">
@@ -95,7 +95,7 @@ export const Signin: React.FC = ({setToken}) => {
           <div>
           <p className="text-sm py-2 text-gray-700">Don't have an account? <span className="text-blue-700 hover:underline"><Link to="/signup">Sign up</Link></span></p>
           <Buttons
-            text="Log in"
+            text="LOG IN"
             variant="primary"
             onClick={handleSignin}
             fullwidth={true}
